@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" name="viewport">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Library</title>
+<!-- <link rel="icon" type="image/x-icon" href="assets/img/truejoyicon.png"/> -->
+<!-- <link rel="icon" href="assets/img/truejoyicon.png" type="image/png" sizes="16x16"> -->
+<link rel="stylesheet" href="assets/vendor/pace/pace.css">
+<script src="assets/vendor/pace/pace.min.js"></script>
+<!--vendors-->
+<link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" type="text/css" href="assets/vendor/jquery-scrollbar/jquery.scrollbar.css">
+<link rel="stylesheet" href="assets/vendor/select2/css/select2.min.css">
+<link rel="stylesheet" href="assets/vendor/jquery-ui/jquery-ui.min.css">
+<link rel="stylesheet" href="assets/vendor/daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="assets/vendor/timepicker/bootstrap-timepicker.min.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,600" rel="stylesheet">
+<!--Material Icons-->
+<link rel="stylesheet" type="text/css" href="assets/fonts/materialdesignicons/materialdesignicons.min.css">
+<!--Material Icons-->
+<link rel="stylesheet" type="text/css" href="assets/fonts/feather/feather-icons.css">
+<!--Bootstrap + atmos Admin CSS-->
+<link rel="stylesheet" type="text/css" href="assets/css/atmos.min.css">
+<!-- Additional library for page -->
+<style>
+    .img-logo{
+    border-radius: 100px;
+    width: 110px;
+}
+.wrapper {
+        background-color: #fff;
+        width: 100vw;
+        overflow-x: hidden;
+      }
+      .login-left {
+        width: 100%;
+        height: 100vh;
+      }
+      .login-right {
+        width: 100%;
+        height: 100vh;
+        background-image: url(/assets/img/img-dmmy.jpg);
+        background-size: cover;
+      }
+      .login-form-container {
+        width: 300px;
+        height: auto;
+        background-color: #fff;
+        padding: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-radius: 3px;
+        /* box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28); */
+        transform: translate(-50%, -50%);
+      }
+      .login-form-container h2 {
+        font-size: 20px;
+        font-weight: 100;
+        text-align: center;
+        margin-bottom: 30px;
+        color: #8b8b8b;
+      }
+      .login-form-img-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .login-form-img-container img {
+        margin-bottom: 35px;
+      }
+      .form-group input {
+        height: 45px;
+        margin: 3px 0 3px 0;
+      }
+      .link {
+        display: block;
+        padding: 10px;
+        margin-top: 10px;
+        text-align: center;
+        font-size: 14px;
+      }
+      .credentail-cont {
+        position: absolute;
+        top: 30%;
+        right: 10%;
+        opacity: 0.8;
+        padding: 10px;
+        border: 1px solid #ddd;
+        background: #fffefe;
+      }
+      .btn-orange {
+        background-color: #fb5c31;
+        color: #fff;
+      }
+      .btn-height {
+        height: 45px;
+      }
+      .btn-orange:hover {
+        background-color: #ff7c58;
+        color: #fff;
+      }
+      @media screen and (max-width: 1366px) {
+        .btn-height {
+        height: 35px;
+      }
+      .login-form-img-container img {
+        margin-bottom: 27px;
+      }
+      .form-group input {
+        height: 35px;
+        margin: 3px 0 3px 0;
+      }
+      .login-form-container {
+        width: 265px;
+      }
+      }
+      .error_message {
+       color: red;
+      }
+
+</style>
+</head>
+<body class="jumbo-page" onload="document.form1.password.focus()">
+
+<main class="admin-main">
+    <div class="container-fluid">
+        <%- include ../partials/message.ejs %>
+        <!-- <div class="row ">
+            <div class="login-wrapper">
+                <div class="login-form-container">
+                  <h2>Signup</h2>
+                  <form method="POST" action='/registerVendor' autocomplete="off">
+                    <div class="form-row">
+                      <div class="form-group col-md-12">
+                        <input
+                          autoComplete="off",
+                          name="name"
+                          placeholder="Vendor Name"
+                          type="text"
+                          class="form-control"
+                        />
+                      </div>
+        
+                      <div class="form-group col-md-12">
+                        <input
+                          autoComplete="off"
+                          placeholder="Email",
+                          name="email"
+                          type="email"
+                          class="form-control"
+                        />
+                      </div>
+                      <div class="form-group col-md-12">
+                        <select id="mySelect2" class="form-control " style="width: 100%;" name='place'>
+                            <option value="">Select Place</option>
+                            
+                        </select>
+                        <span id="error_role_name"></span>
+                      </div>
+                   
+                    
+                    <div class="form-group col-md-12">
+                        <input
+                          autoComplete="off"
+                          placeholder="Phone Number"
+                          type="text"
+                          name="phone_number"
+                          class="form-control"
+                        />
+                      </div>
+
+                      <div class="form-group col-md-12">
+                        <input
+                          autoComplete="off",
+                          name="password"
+                          placeholder="password"
+                          type="password"
+                          class="form-control"
+                        />
+                      </div>
+                      <div class="form-group col-md-12">
+                        <input
+                          autoComplete="off"
+                          name="confirm_password"
+                          placeholder="confirm password"
+                          type="text"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                      Sign up
+                    </button>
+                    <a href="/login" class="link">
+                      Already have account? Sign in here
+                    </a>
+                  </form>
+                </div>
+              </div>
+        </div> -->
+
+        <div class="row wrapper">
+          <div class="col-md-12 col-sm-12">
+            <div class="login-left">
+              <div class="login-form-container">
+                <!-- <div class="login-form-img-container">
+                  <img src="assets/img/truejoy_logo.png" width="50%" />
+                </div> -->
+                <h2>Signup</h2>
+                <form method="POST" id="signup_page" name= "form1" action='/registerUser' autocomplete="off" >
+                  <div class="form-row">
+                    <div class="form-group col-md-12 error_message">
+                      <input
+                        autoComplete="off",
+                        name="name"
+                        placeholder="User Name"
+                        type="text"
+                        class="form-control"
+                      />
+                    </div>
+      
+                    <div class="form-group col-md-12 error_message">
+                      <input
+                        autoComplete="off"
+                        placeholder="Email",
+                        name="email"
+                        type="email"
+                        class="form-control"
+                        required
+                      />
+                    </div>
+                    
+                  
+                  <div class="form-group col-md-12 error_message">
+                      <input
+                        autoComplete="off"
+                        placeholder="Phone Number"
+                        type="text"
+                        name="phone_number"
+                        class="form-control"
+                      />
+                    </div>
+
+                    <div class="form-group col-md-12 error_message">
+                      <input
+                        autoComplete="off",
+                        id="password"
+                        name="password"
+                        placeholder="Password"
+                        type="password"
+                        class="form-control"
+                      />
+                    </div>
+                    <div class="form-group col-md-12 error_message">
+                      <input
+                        autoComplete="off"
+                        id="confirm_password"
+                        name="confirm_password"
+                        placeholder="Confirm Password"
+                        type="password"
+                        class="form-control"
+                      />
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-orange btn-height btn-block" onClick="validatePassword(document.form1.password)">
+                    Sign up
+                  </button>
+                  <a href="/login" class="link">
+                    Already have account? Sign in here
+                  </a>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-md-6 col-sm-12 p-0">
+            <div class="login-right"></div>
+          </div> -->
+        </div>
+    </div>
+</main>
+<%- include ../partials/footer.ejs %>
+
+<!-- <script type="text/javascript" src="https://www.technicalkeeda.com/js/javascripts/plugin/jquery.js"></script>
+<script type="text/javascript" src="https://www.technicalkeeda.com/js/javascripts/plugin/jquery.validate.js"></script> -->
+<script>
+//   $('button').click(function(){
+//     console.log($('.validatedForm').valid());
+// });
+//     $('#mySelect2').select2({
+//         minimumInputLength: 2,
+//     tags: [],
+//     ajax: {
+//         url: 'http://dummy.restapiexample.com/api/v1/employees',
+//         type: "GET",
+//         quietMillis: 50,
+//         data: function (term) {
+//             return {
+//                 term: term
+//             };
+//         },
+//         results: function (data) {
+//             console.log(data,"data");
+            
+//             return {
+//                 data
+//             };
+//         }
+//     }
+// });
+$("#mySelect2").select2({
+    tags: true,
+    tokenSeparators: [','],
+    minimumInputLength: 2,
+    minimumResultsForSearch: 10,
+    ajax: {
+        url: '/getPlaces',
+        dataType: "json",
+        crossDomain: true,
+        type: "GET",
+        data: function (params) {
+
+            var queryParameters = {
+                query: params.term,
+                key:  'AIzaSyAj980DXwQb2yJjO-NfJuohVUcCy2TW3jk'
+            }
+            return queryParameters;
+        },
+        processResults: function (data) {
+            data = JSON.parse(JSON.stringify(data))
+            return {
+                results: $.map(data.data.results, function (item) {
+                    
+                    return {
+                        text: item.name,
+                        id:  `${item.place_id},${item.name}`,   
+                    }
+                })
+            };
+        }
+    }
+});
+</script>

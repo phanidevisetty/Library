@@ -1,0 +1,49 @@
+<%- include ../partials/main.ejs %>
+
+<section class="admin-content">
+    <div class="container">
+        <h3 style="text-align: center;">Add Book</h3>
+
+        <div class="row">
+            <div class="col-md-12">
+                <!--widget card begin-->
+                <div class="card m-b-30 cause-main">    
+                    <!-- <button type="button" class="btn m-b-15 ml-2 mr-2 btn-success"
+                                         style="float:right;">Create</button> -->
+                    <div class="card-body">
+                        <form class="add-cause-form addEmployeeForm" id="bookadd" action="/insertbook" method="POST" enctype="multipart/form-data">
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="issues" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="row">
+                                        <div class="col-md-6 add-cause-form-col1">
+                                            <div class="form-group">
+                                                <label for="book_name">Book Name</label>
+                                                <input type="text" class="form-control" id="book_name"
+                                                    autocomplete="off" placeholder="Book Name"
+                                                    name="book_name">
+                                                    <span id="error_book_name"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 m-t-60">
+                                            <button type="submit" class="btn m-b-15 ml-2 mr-2 btn-success"
+                                                style="float:right;">Save</button>
+                                            <a href="/library"><button type="button" class="btn btn-link m-b-15 ml-2 mr-2"
+                                                    style="float:right;">Cancel</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END PLACE PAGE CONTENT HERE -->
+</section>
+<%- include ../partials/footer.ejs %>
+<script>
+$(document).ready(() => {
+    setHeading('Add User Book')
+})
+</script>

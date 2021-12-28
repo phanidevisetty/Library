@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" name="viewport" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-touch-fullscreen" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id"
+    content="425396143295-3ccd737eggocgq41e3taf1f33fpk50iv.apps.googleusercontent.com">
+  <title>Library</title>
+  <!-- <link rel="icon" type="image/x-icon" href="assets/img/truejoyicon.png" /> -->
+  <!-- <link rel="icon" href="assets/img/truejoyicon.png" type="image/png" sizes="16x16" /> -->
+  <link rel="stylesheet" href="assets/vendor/pace/pace.css" />
+  <script src="assets/vendor/pace/pace.min.js"></script>
+  <!--vendors-->
+  <link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" />
+  <link rel="stylesheet" type="text/css" href="assets/vendor/jquery-scrollbar/jquery.scrollbar.css" />
+  <link rel="stylesheet" href="assets/vendor/select2/css/select2.min.css" />
+  <link rel="stylesheet" href="assets/vendor/jquery-ui/jquery-ui.min.css" />
+  <link rel="stylesheet" href="assets/vendor/daterangepicker/daterangepicker.css" />
+  <link rel="stylesheet" href="assets/vendor/timepicker/bootstrap-timepicker.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,600" rel="stylesheet" />
+  <!--Material Icons-->
+  <link rel="stylesheet" type="text/css" href="assets/fonts/materialdesignicons/materialdesignicons.min.css" />
+  <!--Material Icons-->
+  <link rel="stylesheet" type="text/css" href="assets/fonts/feather/feather-icons.css" />
+  <!--Bootstrap + atmos Admin CSS-->
+  <link rel="stylesheet" type="text/css" href="assets/css/atmos.min.css" />
+  <!-- Additional library for page -->
+  <style>
+    .img-logo {
+      border-radius: 100px;
+      width: 110px;
+    }
+
+    .wrapper {
+      background-color: #fff;
+    }
+
+    .login-left {
+      width: 100%;
+      height: 100vh;
+    }
+
+    .login-right {
+      width: 100%;
+      height: 100vh;
+      background-image: url(/assets/img/img-dmmy.jpg);
+      background-size: cover;
+    }
+
+    .login-form-container {
+      width: 300px;
+      height: auto;
+      background-color: #fff;
+      padding: 20px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border-radius: 3px;
+      /* box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28); */
+      transform: translate(-50%, -50%);
+    }
+
+    .login-form-container h2 {
+      font-size: 20px;
+      font-weight: 100;
+      text-align: center;
+      margin-bottom: 30px;
+      color: #8b8b8b;
+    }
+
+    .login-form-img-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-form-img-container img {
+      margin-bottom: 35px;
+    }
+
+    .form-group input {
+      height: 45px;
+      margin: 3px 0 3px 0;
+    }
+
+    .link {
+      display: block;
+      padding: 10px;
+      margin-top: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .credentail-cont {
+      position: absolute;
+      top: 30%;
+      right: 10%;
+      opacity: 0.8;
+      padding: 10px;
+      border: 1px solid #ddd;
+      background: #fffefe;
+    }
+
+    .btn-orange {
+      background-color: #fb5c31;
+      color: #fff;
+    }
+
+    .btn-height {
+      height: 45px;
+    }
+
+    .btn-orange:hover {
+      background-color: #ff7c58;
+      color: #fff;
+    }
+
+    .or {
+      text-align: center;
+      position: relative;
+    }
+
+    .or::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 40%;
+      height: 1px;
+      background-color: rgb(209, 209, 209);
+    }
+
+    .or::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 40%;
+      height: 1px;
+      background-color: rgb(209, 209, 209);
+    }
+
+    #customBtn {
+      display: inline-block;
+      background: white;
+      color: #444;
+      width: 260px;
+      height: 45px;
+      border-radius: .25rem;
+      border: thin solid #888;
+      white-space: nowrap;
+    }
+
+    .g-signin2 {
+      width: 100%;
+    }
+
+    .g-signin2>div {
+      margin: 0 auto;
+      border-radius: .25rem;
+    }
+
+    .forgot-pass {
+      color: #FB5C31;
+    }
+
+    .forgot-pass:hover {
+      text-decoration: underline;
+      color: #FB5C31;
+    }
+
+    .error_message {
+      color: red;
+    }
+
+    #toast-container>.toast-success {
+      background-color: green;
+      /* max-width: 70%;
+        padding: 1em;
+        margin-bottom: .4em; */
+      /* white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; */
+    }
+  </style>
+</head>
+
+<body class="jumbo-page">
+  <main class="admin-main">
+    <div class="container-fluid">
+      <%- include ../partials/message.ejs %>
+        <div class="row wrapper">
+          <div class="col-md-12 col-sm-12">
+            <div class="login-left">
+              <div class="login-form-container">
+               
+
+                <h2>Sign in</h2>
+                <form class="add-cause-form" id="login_page" action="/homePage" method="POST"
+                  enctype="multipart/form-data">
+                  <div class="form-row">
+                    <div class="form-group col-md-12 error_message">
+                      <input autoComplete="off" id="email" name="email" placeholder="Email" type="text"
+                        class="form-control" onChange="" />
+                    </div>
+                    <div class="form-group col-md-12 error_message">
+                      <input autoComplete="off" name="password" placeholder="Password" type="password"
+                        class="form-control" />
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-orange btn-height btn-block my-3">
+                    Sign in
+                  </button>
+
+                  <a href="/signup" class="link">
+                    Create new acount? Sign up here
+                  </a>
+                 
+                </form>
+              </div>
+            </div>
+          </div>
+    
+        </div>
+        
+    </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+ 
+
+    <%- include ../partials/footer.ejs %>
+
+  </main>
+</body>
+
+</html>

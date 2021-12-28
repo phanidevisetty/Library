@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="google-signin-client_id"
+        content="425396143295-3ccd737eggocgq41e3taf1f33fpk50iv.apps.googleusercontent.com">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" name="viewport">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>Library</title>
+    <link rel="stylesheet" href="/assets/vendor/pace/pace.css">
+    <script src="/assets/vendor/pace/pace.min.js"></script>
+    <!--vendors-->
+    <link rel="stylesheet" type="text/css" href="/assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/vendor/jquery-scrollbar/jquery.scrollbar.css">
+    <link rel="stylesheet" href="/assets/vendor/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/assets/vendor/jquery-ui/jquery-ui.min.css">
+    <link rel="stylesheet" href="/assets/vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="/assets/vendor/timepicker/bootstrap-timepicker.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,600" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/fonts/jost/jost.css">
+    <!--Material Icons-->
+    <link rel="stylesheet" type="text/css" href="/assets/fonts/materialdesignicons/materialdesignicons.min.css">
+    <!--Material Icons-->
+    <link rel="stylesheet" type="text/css" href="/assets/fonts/feather/feather-icons.css">
+    <!--Bootstrap + atmos Admin CSS-->
+    <link rel="stylesheet" type="text/css" href="/assets/css/atmos.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/custom.css">
+    <!-- Additional library for page -->
+    <link rel="stylesheet" href="/assets/vendor/DataTables/datatables.min.css">
+    <link rel="stylesheet" href="/assets/vendor/DataTables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/assets/vendor/dropzone/dropzone.css">
+    <link rel="stylesheet" href="/assets/vendor/datedropper/datedropper.min.css">
+    <!-- library for taginput type -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css"> -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" />
+        <script src="https://apis.google.com/js/api:client.js"></script>
+
+    <style>
+        .dropdown-menu2 {
+            width: 350px !important;
+        }
+
+        .dropdown-menu2.sss {
+            padding-top: 1px !important;
+            padding-bottom: 1px !important;
+        }
+
+        .sss {
+            float: right;
+        }
+
+        .hr {
+            margin-top: 1px;
+            margin-bottom: 1px;
+        }
+
+        .heading {
+            margin-top: 11px !important;
+            margin-bottom: 0.5rem !important;
+        }
+
+        .select-dropdown .dropdown2 {
+            width: fit-content !important;
+        }
+
+        .select-dropdown .d-flex ul {
+            width: fit-content !important;
+        }
+
+        .select-dropdown .d-flex ul {
+            width: fit-content !important;
+        }
+
+        ::-webkit-scrollbar {
+            width: 2px;
+        }
+
+        /* Track */
+        .select-dropdown ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        .select-dropdown ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        /* Handle on hover */
+        .select-dropdown ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .custom-support{
+            border: none !important;
+            font-size: 14px;
+            color: #4E4E4E;
+            font-weight: 600;
+            text-transform: capitalize;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            background: #fff1e3 !important;
+            padding: 18px;
+        }
+        .custom-support svg{
+            stroke: #586D82;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<!--body with default sidebar pinned -->
+
+<body class="sidebar-pinned">
+
+    <!--site header begins-->
+    <header class="admin-header" style="height:80px;">
+      
+        
+                        <a href="#" class="sidebar-toggle" data-toggleclass="sidebar-open" data-target="body"> </a>
+                        <nav class=" ml-auto d-flex mr-5">
+                            <ul class="nav align-items-center">
+                                <li class="nav-item dropdown ">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <% if(session.currentUser) { %>
+                                            <div class="avatar avatar-sm avatar-online">
+                                                <span class="avatar-title rounded-circle bg-costume">
+                                                    <%= session.currentUser.name.toUpperCase().charAt(0)%>
+                                                </span>
+                                            </div>
+                                            <% } %>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/logout"> Logout</a> -->
+                            <span>
+                                <a href="/logout"><button type="button" class="btn btn-orange my-2 mr-5">
+                                        Log Out
+                                    </button></a>
+
+                            </span>
+                        </nav>
+    </header>
+    <!--sidebar Begins-->
+    <aside class="admin-sidebar">
+        <div class="admin-sidebar-brand" style="height:80px;">
+            <!-- begin sidebar branding-->
+            <!-- end sidebar branding-->
+            <!-- <div class="ml-auto"> -->
+            <!-- sidebar pin-->
+            <!-- <a href="#" class="admin-pin-sidebar btn-ghost btn btn-rounded-circle ml-3"></a> -->
+            <!-- sidebar close for mobile device-->
+            <!-- <a href="#" class="admin-close-sidebar ml-2"></a> -->
+            <!-- </div> -->
+        </div>
+        <div class="admin-sidebar-wrapper js-scrollbar">
+            <!-- Menu List Begins-->
+            <ul class="menu mt-4">
+                <!--list of orderitem begins-->
+
+                <li id="Faqs-nav" class="menu-item check-permission my-2" data-module="Faqs" data-mode="Read">
+                    <a href="/library" class="menu-link ml-4">
+                        <span class="menu-icon">
+                            <i class="icon-placeholder mdi mdi-globe-model"></i>
+                        </span>
+                        <span class="menu-label">
+                            <span class="menu-name">Library</span>
+                        </span>
+                    </a>
+                </li>
+
+                <li id="Employees-nav" class="menu-item check-permission my-2" data-module="Vendors" data-mode="Read">
+                    <a href="/userbooks" class="menu-link ml-4">
+                        <span class="menu-icon">
+                            <i class="icon-placeholder mdi mdi-globe-model"></i>
+                        </span>
+                        <span class="menu-label">
+                            <span class="menu-name">User Books</span>
+                        </span>
+                    </a>
+                </li>
+                <!-- list item ends-->
+                
+            </ul>
+           
+        </div>
+
+    </aside>
+    <!--sidebar Ends-->
+    <aside class="admin-sidebar2"></aside>
+    <main class="admin-main">
+
+        <div style="display: none;">
+            <div id="gSignInWrapper">
+                <span class="label">Sign in with:</span>
+                <div id="customBtn" class="customGPlusSignIn">
+                    <span class="icon"></span>
+                    <span class="buttonText">Google</span>
+                </div>
+            </div>
+            <div id="name"></div>
+        </div>
+
+        <%- include ./message.ejs %>
+           

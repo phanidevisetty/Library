@@ -1,0 +1,388 @@
+</main>
+
+
+<script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+<script src="/assets/vendor/popper/popper.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/vendor/select2/js/select2.full.min.js"></script>
+<script src="/assets/vendor/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<script src="/assets/vendor/listjs/listjs.min.js"></script>
+<script src="/assets/vendor/moment/moment.min.js"></script>
+<script src="/assets/vendor/daterangepicker/daterangepicker.js"></script>
+<script src="/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="/assets/vendor/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="/assets/js/atmos.js"></script>
+<!--page specific scripts for demo-->
+<script src="/assets/vendor/DataTables/datatables.min.js"></script>
+<script src="/assets/js/datatable-data.js"></script>
+
+<script src="/assets/vendor/timepicker/bootstrap-timepicker.min.js"></script>
+<script src="/assets/vendor/datedropper/datedropper.min.js"></script>
+<script src="/assets/vendor/dropzone/dropzone.js"></script>
+<script src="/assets/vendor/jquery.mask/jquery.mask.min.js"></script>
+<script src="/assets/js/form-data.js"></script>
+<script src="/utils/dateFormatter.js"></script>
+<script src="/utils/checked.js"></script>
+<!-- jquery validation CDN and CustomValidation_File-->
+<!-- <script scr = "https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
+<script src = "https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/additional-methods.min.js"></script> -->
+<!-- <script type="text/javascript" src="https://www.technicalkeeda.com/js/javascripts/plugin/jquery.js"></script>
+<script type="text/javascript" src="https://www.technicalkeeda.com/js/javascripts/plugin/jquery.validate.js"></script> -->
+<script src="/assets/js/jquery-validation.js"></script>
+<script src="/assets/js/custom-validations.js"></script>
+<script src="/assets/js/swal-data.js"></script>
+<script src="/assets/vendor/sweetalert/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.3.3/bootbox.min.js"></script>
+<!-- Taginput-->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
+<!-- <script src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script> -->
+<!--  -->
+<!-- <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.min.js"></script> -->
+<style>
+    #modal-error {
+        color: red;
+    }
+</style>
+<script>
+    $(function() {
+        $('.datePicker_dob').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            autoUpdateInput: false,
+            minYear: 1901,
+            locale: {
+                cancelLabel: 'Clear',
+                format: 'DD/MMM/YYYY'
+            }
+        }, function(start, end, label) {
+            $('.datePicker_dob').val(start.format('DD/MM/YYYY'))
+        });
+        $('.datePicker_dob').on('apply.daterangepicker', function(ev, picker){
+            handleEvent({name: 'dob', value: $('.datePicker_dob').val()})  
+        })
+    });
+    $(function() {
+        $('.datePicker_join').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            autoUpdateInput: false,
+            minYear: 1901,
+            locale: {
+                cancelLabel: 'Clear',
+                format: 'DD/MMM/YYYY'
+            }
+        }, function(start, end, label) {
+            $('.datePicker_join').val(start.format('DD/MM/YYYY'))
+        });
+        $('.datePicker_join').on('apply.daterangepicker', function(ev, picker){
+            handleEvent({name: 'join_date', value: $('.datePicker_join').val()})  
+        })
+    });
+    </script>
+<script>
+    $('#custom-error-msg').hide()
+    $("#error-msg").delay(2000).slideUp();
+    $("#success-msg").delay(2000).slideUp();
+    console.log("ok");
+    setTimeout(function () {
+        $.ajax({
+            type: 'GET',
+            url: '/clearsession',
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+            }
+        });
+    }, 2000);
+
+    //function to set page headings
+    function setHeading(heading){
+        $('#pageHeading').text(heading)
+    }
+
+    function deleteFunc(ele, dataURL) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                var id = $(ele).closest('table').attr('id');
+                var closest = $(ele).closest('tr');
+                $.ajax({
+                    method: "GET",
+                    url: dataURL,
+                    success: function (data) {
+                        if (data.status == true) {
+                            var table = $('#' + id).DataTable();
+                            table.row(closest).remove().draw()
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        }else if(data.status == false){
+                            if(data.value == 1){
+                                Swal.fire(
+                                    'Declined!',
+                                    data.message,
+                                    "error"
+                                )
+                            }
+                        }
+                        if(data.result != null){
+
+                        $("#surveyName").find('option').remove()
+                            var options = '<option selected value=" ">Select Your Survey Name </option>';
+                            for(var i = 0; i < data.result.length; i++){
+                                options += "<option value =" + `${data.result[i].survey_name}` + ">" + `${data.result[i].survey_name}` + "</option>"
+                            }
+                        $('#surveyName').append(options);
+
+                        }
+                    }
+                })
+            }
+        })
+    }
+
+    function releaseUser(ele, dataURL) {
+        Swal.fire({
+            title: 'Are you sure want to release?',
+            text: "Is this user attended for show?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if(result.value != undefined){
+                let present = result.value == true ? 1 : 0;
+                var id = $(ele).closest('table').attr('id');
+                var closest = $(ele).closest('tr');
+                $.ajax({
+                    method: "GET",
+                    url: dataURL+present,
+                    success: function (data) {
+                        if (data.status == true) {
+                            var table = $('#' + id).DataTable();
+                            table.row(closest).remove().draw()
+                            Swal.fire(
+                                'Released!',
+                                'User has been Released.',
+                                'success'
+                            )
+                        }
+                    }
+                })
+            }
+        })
+    }
+
+    function statusFunc(ele, dataURL, btn = 0) {
+        $('#cover-spin').show();
+        console.log(ele);
+        var timerInterval
+        let statusFail = false
+        let message 
+        Swal.fire({
+            title: 'Updating Status',
+            html: 'I will close in <strong></strong> seconds.',
+            timer: 1000,
+            onBeforeOpen: () => {
+                $.ajax({
+                    method: "GET",
+                    url: dataURL + ele.value,
+                    success: function (data) {
+                        $('#cover-spin').hide();
+                        if (data.status) {
+                            ele.value = ele.value == 1 ? 0 : 1;
+                            if (btn) {
+                            $(ele).attr("disabled", true);
+                            }
+                        }else{
+                            if(data.value == 1){
+                                statusFail = true
+                                message = data.message
+                            }
+                        }
+                    }
+                })
+                Swal.showLoading()
+                timerInterval = setInterval(() => {
+                    Swal.getContent().querySelector('strong')
+                        .textContent = Swal.getTimerLeft()
+                }, 100)
+            },
+            onClose: () => {
+                clearInterval(timerInterval)
+                if(statusFail){
+                    ele.checked = 1
+                    Swal.fire(
+                        'Declined!',
+                        message,
+                        "error"
+                    )
+                }
+            }
+        }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.timer) { }
+        })
+    }     
+</script>
+<script>
+    $(document).ready(function () {
+
+        
+        let location_path = window.location.pathname.split('/');
+        let loc = location_path[1];
+        let mainNavArray = [ 'events-nav', 'happiness-nav', 'tvShows-nav', 'Primary-nav', 'uploadMasters-nav' ];
+        let navArray = ['Countries-nav', 'States-nav', 'Clusters-nav', 'LocationTypes-nav', 'Departments-nav', 'locations-nav', 'cities-nav', 'hubs-nav',
+                        'categoryFileUpload-nav', 'productsFileUpload-nav', 'Employees-nav', 'Teams-nav', 'VisitTypes-nav', 'Classifications-nav', 'SubCategory-nav', 
+                        'Rules-nav', 'Roles-nav', 'SubSubCategory-nav', 'ProductTypes-nav', "MetalBom-nav", "StoneMaster-nav", 'showCategories', 'ExcludeVariants-nav', 'CustomerVisits-nav',
+                        'MatelMaster-nav', 'VideoCallSchedules-nav', 'Places-nav', 'Settings-nav', 'Offers-nav', 'Account-nav', 'Plans-nav'];
+        if (loc) {
+            let active;
+            let active_main = '';
+            if (loc == 'showCountries' || loc == "addCountry" || loc == "editCountry") {
+                active_main = 'Primary-nav';
+                active = 'Countries-nav';
+            } else if (loc == 'showStates' || loc == "addState" || loc == "editState"){
+                active = 'States-nav';
+                active_main = 'Primary-nav';
+            } else if (loc == 'showClusters' || loc == "addCluster" || loc == "editCluster"){
+                active = 'Clusters-nav'; 
+                active_main = 'Primary-nav';
+            } else if (loc == 'showLocationTypes' || loc == "addLocationType" || loc == "editLocationType"){
+                active = 'LocationTypes-nav';
+                active_main = 'Primary-nav';
+            } else if (loc == 'showDepartments' || loc == "addDepartment" || loc == "editDepartment"){
+                active = 'Departments-nav';
+                active_main = 'Primary-nav';
+            } else if (loc == 'showAllLocations' || loc == "addLocation" || loc == "editLocation" || loc == "locationsfileupload"){
+                active = 'locations-nav';
+                active_main = 'Primary-nav';
+            } else if (loc == 'cities' || loc == "addCity" || loc == "editCity"){
+                active = 'cities-nav';
+                active_main = 'Primary-nav';
+            } else if (loc == 'hubs' || loc == "addHub" || loc == "editHub"){
+                active = 'hubs-nav';
+                active_main = 'Primary-nav';
+            } else if (loc == 'categoryfileupload' || loc == "showCategories" || loc == 'addCategory' || loc == 'editCategory'){
+                active = 'categoryFileUpload-nav';
+                active_main = 'uploadMasters-nav'
+            } else if (loc == 'productsfileupload' || loc == 'products'){
+                active = 'productsFileUpload-nav';
+                active_main = 'uploadMasters-nav'
+            } else if (loc == 'employees' || loc == "addEmployee" || loc == "editEmployee"){
+                active = 'Employees-nav';
+            } else if (loc == 'showTeams' || loc == "addTeam" || loc == "editTeam"){
+                active = 'Teams-nav';
+                active_main = 'Primary-nav';
+            } else if (loc == 'showVisitTypes' || loc == "addVisitType" || loc == "editVisitType"){
+                active = 'VisitTypes-nav';
+                active_main = 'Primary-nav';
+            } else if (loc == 'showClassifications' || loc == 'addClassification' || loc == 'editClassification' ){
+                active = 'Classifications-nav';
+                active_main = 'uploadMasters-nav'
+            } else if (loc == 'showSubCategory' || loc == 'editSubCategory' || loc == 'addSubCategory'){
+                active = 'SubCategory-nav';
+                active_main = 'uploadMasters-nav'
+            } else if (loc == 'showRules' || loc == "addRules" || loc == "editRules"){
+                active = 'Rules-nav';
+                active_main = 'Primary-nav';
+            } else if (loc == 'showSubSubCategory' || loc == 'addSubSubCategory' || loc == 'editSubSubCategory'){
+                active = 'SubSubCategory-nav';
+                active_main = 'uploadMasters-nav'
+            } else if (loc == 'showProductTypes' || loc == 'addProductType' || loc == 'editProductType'){
+                active = 'ProductTypes-nav';
+                active_main = 'uploadMasters-nav'
+            } else if (loc == 'showRoles' || loc == 'addRole' || loc == 'editRole'){
+                active = 'Roles-nav';
+                active_main = 'Primary-nav'
+            }else if (loc == 'metalbomuploadform'){
+                active = 'MetalBom-nav';
+                active_main = 'uploadMasters-nav'
+            }else if (loc == 'stonemasteruploadform'){
+                active = 'StoneMaster-nav';
+                active_main = 'uploadMasters-nav'
+            }else if(loc == 'showVariants' || loc == 'addVariants' || loc == 'variantsFilesUpload'){
+                active = 'ExcludeVariants-nav';
+                active_main = 'uploadMasters-nav'
+            }else if(loc == 'viewRequirements' || loc == 'customerVisitList'){
+                active = 'CustomerVisits-nav'
+            }else if (loc == 'metalmasteruploadform' || loc == 'metalMasterList' || loc == 'addMetalMaster' || loc == 'editmetalMaster'){
+                active = 'MatelMaster-nav';
+                active_main = 'uploadMasters-nav'
+            }else if(loc == 'videoCallsList'){
+                active = 'VideoCallSchedules-nav'
+            }else if(loc == 'showPlaces' || loc == 'viewPlace' || loc == 'editPlace'){
+                active = 'Places-nav';
+                active_main = 'Primary-nav'
+            }else if (loc == 'showSettingPlace' || loc == "editSettingPlace"){
+                active = 'Settings-nav';
+            } else if(loc == 'offers'){
+                active = 'Offers-nav'
+            }else if(loc == 'account'){
+                active = 'Account-nav'
+            }
+            // else if(loc == 'plans'){
+            //     active = 'Plans-nav'
+            // }
+
+            mainNavArray.forEach(ele=>{
+                if (active_main == ele) {
+                    $('#'+active_main).addClass("opened");
+                    $('#'+active_main).find('ul').css('display', 'block');
+                } else {
+                    $('#'+ele).removeClass("opened");
+                    $('#'+ele).find('ul').css('display', 'none');
+                }
+            })
+            navArray.forEach(element => {
+                if (element == active) {
+                    $("#"+active).addClass("active");
+                } else {
+                    $("#" + active).find('.active').removeClass("active");
+                }
+            });
+        }
+    })
+</script>
+
+<script>
+    function confirmationPopUp(id, status) {
+        var message = "";
+        var successBtn = ""
+        if (status == 2) {
+            message = "You won't be able to revert this!";
+            successBtn = "Yes, Decline it!"
+        } else {
+            message = "You won't be able to revert this!";
+            successBtn = "Yes, Accept it!"
+        }
+        Swal.fire({
+            title: 'Are you sure?',
+            text: message,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: successBtn
+        }).then((result) => {
+            if (result.value) {
+                acceptDecline(id, status)
+            }
+        })
+    }
+</script>
+
+</body>
+
+</html>

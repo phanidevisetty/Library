@@ -1,0 +1,1 @@
+Here in this folder create the files for Header, Footer and SideBar

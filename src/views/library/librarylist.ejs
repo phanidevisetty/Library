@@ -1,0 +1,133 @@
+<%- include ../partials/main.ejs %>
+<section class="admin-content">
+ 
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12">
+                <!--widget card begin-->
+                <div class="card m-b-30 cause-main">
+                   <button onclick="window.location.href='/addbook'" type="button" class="btn  m-b-30 ml-2 mr-2 cause-add-but"><i
+                                class="mdi mdi-plus"></i> Add Book
+                        </button>
+                      
+                    <div class="card-body">
+                        <div>
+                            <h3 id="pageHeading" class="text-color mb-3"></h3>
+                        </div>
+                        <!--  -->
+
+                        <div class="row">
+                            <div class="col-md-12 cause-main">
+                                <!-- datatable - start -->
+                                <div class="table-responsive p-t-10">
+                                    <% if(libraryResp.length == 0) { %>
+                                        <table id="user-table" class="table table-hover table-responsive-lg"
+                                        width="100%">
+                                        <% }else { %>
+                                            <table id="user-table" class="table table-hover table-responsive-lg"
+                                        width="100%">
+                                        <% } %>
+                                        <thead>
+                                            <tr>
+                                                <th>Book Name</th>
+                                                <th>Book Added By</th>
+                                                <th>Book Availability</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% for(var i in libraryResp){ %>
+                                                <tr>
+                                                    <td>
+                                                        <%= libraryResp[i].book_name%>
+                                                    </td>
+                                                    <td>
+                                                        <%= libraryResp[i].usersdata ? libraryResp[i].usersdata.name : '' %>
+                                                    </td>
+                                                    <td>
+                                                        <%= libraryResp[i].is_selected == 1 ? 'Yes' : 'No' %>
+                                                    </td>
+                                                
+                                                    <!-- <td>
+                                                        <div class=" mt-1">
+                                                            <label class="cstm-switch">
+                                                                <% if(libraryResp[i].is_active == 1){ %>
+                                                                <input type="checkbox" name="option" value="<%= libraryResp[i].is_active %>"
+                                                                    class="cstm-switch-input" title="Status" onclick="statusFunc(this, '/libraryRespstatus/<%= libraryResp[i]._id %>/') "
+                                                                    checked>
+                                                                <% }else{%>
+                                                                <input type="checkbox" name="option" value="<%= libraryResp[i].is_active %>"
+                                                                    class="cstm-switch-input " onclick="statusFunc(this, '/libraryRespstatus/<%= libraryResp[i]._id %>/') ">
+                                                                <% } %>
+                                                                <span class="cstm-switch-indicator" ></span>
+                                                            </label>
+                                                        </div>
+                                                    </td> -->
+                                               
+                                                    <td>
+                                                        
+                                                        <% if(session.currentUser.name == libraryResp[i].usersdata.name) { %>
+                                                        <span class="d-flex">
+                                                            <!-- <a href="/editlibraryResp/<%= libraryResp[i]._id %>" class="tool_tip m-l-20"
+                                                                data-toogle="tooltip" title="Edit"><img src="assets/img/icons/edit.svg"
+                                                                    alt="edit img" class="action-img" ></a>
+                                                            &nbsp;&nbsp; -->
+                                                            <img src="assets/img/icons/delete.svg" alt="delete img" title="Delete" class="action-img tool_tip m-l-20"
+                                                                onclick="deleteFunc(this,'/deletelibraryResp/<%= libraryResp[i]._id %>' ) ">
+                                                                <% }else { %>
+                                                                    <span></span>
+                                                                <% } %>
+                                                            </td>
+                                                
+                                                </tr>
+                                            <% } %>
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                                <!-- datatable - end -->
+                            </div>
+                        </div>
+                        <!--  -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END PLACE PAGE CONTENT HERE -->
+</section>
+<%- include ../partials/footer.ejs %>
+<script>
+    $(document).ready(() => {
+        setHeading('Books List')
+        var item = document.getElementById("user-table_filter");
+        item.querySelector('input').setAttribute("placeholder", "All");
+    })
+
+   
+</script>
+<script> 
+
+    function userData(data) {
+        let table = $('#user-table').DataTable();
+        table.clear().draw();
+        let allData = []
+        data.forEach((element) => {
+            allData.push([ element.constituency_name, element.name, element.user_type_name, element.email, element.phone_number, element.address,
+           ` <div class=" m-b-10">
+                <label class="cstm-switch">
+                    <input type="checkbox" ${checked(element.is_active)} name="option" value="${element.is_active}"
+                        class="cstm-switch-input" onclick="statusFunc(this, '/userStatus/${element.id}/')">
+                    <span class="cstm-switch-indicator "></span>
+                </label>
+            </div>`,
+        `<a href="/editUser/${element.id}"><img src="assets/img/icons/edit.svg"
+                alt="edit img" title="Edit" class="action-img"></a> &nbsp;&nbsp;
+        <img src="assets/img/icons/delete.svg" id="id_delete" alt="delete img"
+            class="action-img" title="Delete" onclick="deleteFunc(this, '/deleteUser/${element.id}')">`])
+        });
+        table.rows.add(allData).draw(false)
+    }
+
+</script> 

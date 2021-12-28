@@ -1,0 +1,103 @@
+<%- include ../partials/main.ejs %>
+
+<section class="admin-content">
+    <div class="container">
+        <h3 style="text-align: center;">Add User Book</h3>
+
+        <div class="row">
+            <div class="col-md-12">
+                <!--widget card begin-->
+                <div class="card m-b-30 cause-main">    
+                    <!-- <button type="button" class="btn m-b-15 ml-2 mr-2 btn-success"
+                                         style="float:right;">Create</button> -->
+                    <div class="card-body">
+                        <form class="add-cause-form addEmployeeForm" id="id_form_employees" action="/insertUserbook" method="POST" enctype="multipart/form-data">
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="issues" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="row">
+                                        <div class="col-md-6 add-cause-form-col1">
+                                            
+                                            <div class="form-group ">
+                                                <label for="book_id" class="font-secondary">Select Book</label>
+                                                <select class="form-control js-select2" style="width: 100%;" name='book_id'>
+                                                    <option value="">Select Book</option>
+                                                    <% for(var k in Booksdata){ %>
+                                                    <option value="<%= Booksdata[k]._id %>">
+                                                        <%= Booksdata[k].book_name %></option>
+                                                    <% } %>
+                                                </select>
+                                                <span id="error_book_name"></span>
+                                            </div>
+                                            <!-- <div class="form-group ">
+                                                <label for="status_masters_id" class="font-secondary">Select Status</label>
+                                                <select class="form-control js-select2" style="width: 100%;" name='status_masters_id'>
+                                                    <% for(var s in masterStatus){ %>
+                                                    <option value="<%= masterStatus[s]._id %>">
+                                                        <%= masterStatus[s].status %></option>
+                                                    <% } %>
+                                                </select>
+                                                <span id="error_status"></span>
+                                            </div> -->
+                                            <div class="form-group">
+                                                <label for="book_status_name">Book Status</label>
+                                                <input type="text" class="form-control" id="book_status_name"
+                                                    autocomplete="off" placeholder="Book Status Name"
+                                                    name="book_status_name" value='Issue' readonly>
+                                                    <span id="error_book_status_name"></span>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="password">Password</label>
+                                                <input type="password" class="form-control" id="password"
+                                                    autocomplete="new-password" placeholder="Password" name="password">
+                                                    <span id="error_password"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="confirm_password">Confirm Password</label>
+                                                <input type="password" class="form-control" id="confirm_password"
+                                                    autocomplete="off" placeholder="Confirm Password" name="confirm_password">
+                                                    <span id="error_confirm_password"></span>
+                                            </div>
+                                            <div class="form-group ">
+                                                <label for="gender" class="font-secondary">Gender</label>
+                                                <select class="form-control js-select2" name='gender'>
+                                                    <option value="">Select Gender</option>
+                                                    <option value="male">Male</option>
+                                                    <option value="female">Female</option>
+                                                    <option value="other">Other</option>
+                                    
+                                                </select>
+                                                <span id="error_gender"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="address">Address</label>
+                                                <textarea class="form-control" id="address" autocomplete="off" rows="5"
+                                                    name="address"></textarea>
+                                                    <span id="error_address" ></span>
+                                            </div>
+
+                                        </div> -->
+                                        <div class="col-md-12 m-t-60">
+                                            <button type="submit" class="btn m-b-15 ml-2 mr-2 btn-success"
+                                                style="float:right;">Save</button>
+                                            <a href="/userbooks"><button type="button" class="btn btn-link m-b-15 ml-2 mr-2"
+                                                    style="float:right;">Cancel</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END PLACE PAGE CONTENT HERE -->
+</section>
+<%- include ../partials/footer.ejs %>
+<script>
+$(document).ready(() => {
+    setHeading('Add User Book')
+})
+</script>
